@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 class DishDetail extends Component {
-    constructor(props) {
-        super(props);
+
+    componentDidMount() {
+        console.log("Dishdetail componentDidMount")
+    }
+
+    componentDidUpdate(){
+        console.log("Dishdetail componentDidUpdate")
     }
 
     renderDish(dish) {
@@ -38,12 +43,13 @@ class DishDetail extends Component {
 
     renderComments(comments) {
         var rates = <div></div>;
-        if (comments.length != 0) {
+        if (comments.length !== 0) {
             rates = comments.map((comment) => {
                 return (
                     <div key={comment.id}>
                         <li>{comment.comment}</li>
                         <li>--{comment.author}</li>
+                        {/* <li>{new Intl.DateTimeFormat('en-US',{year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</li> */}
                     </div>
                 )
             })
@@ -52,9 +58,10 @@ class DishDetail extends Component {
     }
 
     render() {
+        console.log("Dishdetail render")
         return (
-            <div>
-                {this.renderDish(this.props.dishDetail)}
+            <div class="container">
+                {this.renderDish(this.props.dish)}
             </div>
         )
     }
