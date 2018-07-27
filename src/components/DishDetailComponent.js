@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom';
 import CommentForm from './CommentFormComponent';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 function RenderDish({ dish, comments, postComment }) {
     if (dish != null) {
         return (
             <div className="row">
                 <div className="col-12 col-md-5 m-1">
+                <FadeTransform in 
+        transformProps = {{
+            exitTransform : 'scale(0.5) translateY(-50%)'
+        }}>
                     <Card>
                         <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
                         <CardBody>
@@ -17,12 +22,15 @@ function RenderDish({ dish, comments, postComment }) {
                             <CardText>{dish.description}</CardText>
                         </CardBody>
                     </Card>
+                    </FadeTransform>
                 </div>
                 <div className="col-12 col-md-5 m-1">
 
                     <h4> Comments</h4>
                     <ul className="list-unstyled">
+                    <Stagger in>
                         <RenderComments comments={comments} postComment={postComment} dishId={dish.id} />
+                        </Stagger>
                     </ul>
                     <CommentForm postComment={postComment} dishId={dish.id} />
                 </div>
@@ -42,8 +50,10 @@ function RenderComments({ comments, postComment, dishId }) {
         rates = comments.map((comment) => {
             return (
                 <div key={comment.id}>
+                <Fade in>
                     <li>{comment.comment}</li>
                     <li>--{comment.author}</li>
+                    </Fade>
                     {/* <li>{new Intl.DateTimeFormat('en-US',{year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</li> */}
                 </div>
             )
