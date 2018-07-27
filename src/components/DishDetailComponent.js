@@ -5,7 +5,7 @@ import CommentForm from './CommentFormComponent';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 
-function RenderDish({ dish, comments, addComment }) {
+function RenderDish({ dish, comments, postComment }) {
     if (dish != null) {
         return (
             <div className="row">
@@ -22,9 +22,9 @@ function RenderDish({ dish, comments, addComment }) {
 
                     <h4> Comments</h4>
                     <ul className="list-unstyled">
-                        <RenderComments comments={comments} addComment={addComment} dishId={dish.id} />
+                        <RenderComments comments={comments} postComment={postComment} dishId={dish.id} />
                     </ul>
-                    <CommentForm addComment={addComment} dishId={dish.id} />
+                    <CommentForm postComment={postComment} dishId={dish.id} />
                 </div>
             </div>
         );
@@ -36,7 +36,7 @@ function RenderDish({ dish, comments, addComment }) {
     }
 }
 
-function RenderComments({ comments, addComment, dishId }) {
+function RenderComments({ comments, postComment, dishId }) {
     var rates = <div></div>;
     if (comments.length !== 0) {
         rates = comments.map((comment) => {
@@ -83,7 +83,7 @@ const DishDetail = (props) => {
                     <hr />
                 </div>
             </div>
-            <RenderDish dish={props.dish} comments={props.comments} addComment={props.addComment} />
+            <RenderDish dish={props.dish} comments={props.comments} postComment={props.postComment} />
         </div>
     )
 }
